@@ -70,7 +70,9 @@ public class PlayerJump : MonoBehaviour
 _didJump = false;
         }
         if(other.tag == "Platform"){
-
+if(GameManager.instance != null){
+GameManager.instance.CreateNewPlatformAndLerp(other.transform.position.x);
+}
         }
     }
 }
