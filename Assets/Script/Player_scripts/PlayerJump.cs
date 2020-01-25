@@ -22,8 +22,9 @@ public class PlayerJump : MonoBehaviour
     {
         SetPower();
     }
-    
-    void Initialize(){
+
+    void Initialize()
+    {
         _myBody = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
     }
@@ -65,14 +66,27 @@ public class PlayerJump : MonoBehaviour
         _forceX = _forceY = 0;
         _didJump = true;
     }
-    private void OnTriggerEnter2D(Collider2D other) {
-        if(_didJump){
-_didJump = false;
+    private void OnTriggerEnter2D(Collider2D other)
+    { Debug.Log(other.tag);
+        if (_didJump)
+        {
+            _didJump = false;
         }
-        if(other.tag == "Platform"){
-if(GameManager.instance != null){
-GameManager.instance.CreateNewPlatformAndLerp(other.transform.position.x);
-}
+        if (other.tag == "Platform")
+        {
+            if (GameManager.instance != null)
+            {
+                GameManager.instance.CreateNewPlatformAndLerp(other.transform.position.x);
+            }
+        }
+
+        if(other.tag == "Death"){
+            Debug.Log("Coll" + " " + other.tag);
+            if(GameOverManager.instance != null){
+                GameOverManager.instance.GameOverShowPanel();
+                Debug.Log("DeathTrigger");
+            }
+            Destroy(gameObject);
         }
     }
 }
