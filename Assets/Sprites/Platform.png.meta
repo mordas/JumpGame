@@ -4,10 +4,10 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: 2695397407002535339
-    second: Platform_0
+    second: UI_Power
   - first:
       213: -5862022666285825741
-    second: Platform_1
+    second: UI_Power_Back
   - first:
       213: -6244361495144544390
     second: Platform_2
@@ -107,7 +107,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Platform_0
+      name: UI_Power
       rect:
         serializedVersion: 2
         x: 8
@@ -115,7 +115,7 @@ TextureImporter:
         width: 20
         height: 332
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -128,7 +128,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Platform_1
+      name: UI_Power_Back
       rect:
         serializedVersion: 2
         x: 29
@@ -136,7 +136,7 @@ TextureImporter:
         width: 21
         height: 332
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -157,7 +157,7 @@ TextureImporter:
         width: 118
         height: 286
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

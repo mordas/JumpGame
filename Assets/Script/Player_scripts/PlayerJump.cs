@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerJump : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class PlayerJump : MonoBehaviour
     private float _tresholdY = 14.0f;
     private bool _setPower, _didJump;
 
+    private Slider _powerSlider;
+    private float _powerBarTreshold = 14f;
+    private float _powerBarValue = 0f;
     void Awake()
     {
         MakeInstance();
@@ -25,8 +29,12 @@ public class PlayerJump : MonoBehaviour
 
     void Initialize()
     {
+        _powerSlider = GameObject.Find("PowerBar").GetComponent<Slider>();
         _myBody = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
+        _powerSlider.minValue = 0f;
+        _powerSlider.maxValue = 10f;
+        _powerSlider.value = _powerBarValue;
     }
     void MakeInstance()
     {
@@ -49,7 +57,10 @@ public class PlayerJump : MonoBehaviour
             {
                 _forceY = 13.0f;
             }
+            _powerBarValue += _powerBarTreshold * Time.deltaTime;
+            _powerSlider.value = _powerBarValue;
         }
+
     }
     public void SetPower(bool _setPower)
     {
@@ -65,12 +76,17 @@ public class PlayerJump : MonoBehaviour
         _myBody.velocity = new Vector2(_forceX, _forceY);
         _forceX = _forceY = 0;
         _didJump = true;
+        _anim.SetBool("Jump", _didJump);
+        _powerBarValue = 0f;
+        _powerSlider.value = _powerBarValue;
     }
     private void OnTriggerEnter2D(Collider2D other)
-    { Debug.Log(other.tag);
+    {
+        Debug.Log(other.tag);
         if (_didJump)
         {
             _didJump = false;
+            _anim.SetBool("Jump", _didJump);
         }
         if (other.tag == "Platform")
         {
@@ -78,11 +94,17 @@ public class PlayerJump : MonoBehaviour
             {
                 GameManager.instance.CreateNewPlatformAndLerp(other.transform.position.x);
             }
+            if (ScoreManager.instance != null)
+            {
+                ScoreManager.instance.IncrementScore();
+            }
         }
 
-        if(other.tag == "Death"){
+        if (other.tag == "Death")
+        {
             Debug.Log("Coll" + " " + other.tag);
-            if(GameOverManager.instance != null){
+            if (GameOverManager.instance != null)
+            {
                 GameOverManager.instance.GameOverShowPanel();
                 Debug.Log("DeathTrigger");
             }
